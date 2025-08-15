@@ -32,14 +32,14 @@ impl Sea {
         match ship.orientation {
             ship::ShipOrientation::Vertical => {
                 while count < ship.length {
-                    self.spaces[x][y] = SeaState::Occupied;
-                    y += 1;
+                    self.spaces[y][x] = SeaState::Occupied;
+                    y -= 1;
                     count += 1;
                 }
             },
             ship::ShipOrientation::Horizontal => {
                 while count < ship.length {
-                    self.spaces[x][y] = SeaState::Occupied;
+                    self.spaces[y][x] = SeaState::Occupied;
                     x += 1;
                     count += 1;
                 }
@@ -50,19 +50,27 @@ impl Sea {
     }
 
     pub fn print(&self, hide_ships: bool) {
-        let mut x: usize = 0;
+        let mut x: usize = self.spaces.len();
         let mut y: usize = 0;
-        while x < self.spaces.len() {
-            while y < self.spaces[x].len() {
-                self.spaces[x][y].print(hide_ships);
+
+        while x > 0 {
+            print!("{} ", x-1);
+            while y < self.spaces[x - 1].len() {
+                // print!("({},{y}) ", x-1);
+                self.spaces[x - 1][y].print(hide_ships);
                 y += 1;
             }
 
             println!();
-
-            x += 1;
+            x -= 1;
             y = 0;
         }
+
+        print!("x ");
+        for n in 0..self.spaces.len() {
+            print!(" {n} ");
+        }
+        println!();
     }
 }
 

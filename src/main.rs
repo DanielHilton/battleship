@@ -9,7 +9,12 @@ fn main() {
     player_sea.place_ship(0, 0,
         entity::ship::new(
             entity::ship::ShipKind::AircraftCarrier,
-            entity::ship::ShipOrientation::Vertical)
+            entity::ship::ShipOrientation::Horizontal)
+    );
+
+    player_sea.place_ship(5,9, entity::ship::new(
+        entity::ship::ShipKind::Cruiser,
+        entity::ship::ShipOrientation::Vertical)
     );
 
     player_sea.print(false);
